@@ -13,8 +13,7 @@ function createInstance(config) {
   const axios = new Axios(config)
 
   const obj = config => {
-    const { method, url } = config;
-    return axios.request(method, url);
+    return axios.request(config);
   };
 
 

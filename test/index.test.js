@@ -47,7 +47,6 @@
 // 3. http 请求
 // 4. 返回一个 promise
 
-
 // 加一个运行使用
 // 加集成测试
 
@@ -106,10 +105,53 @@ describe("axios", () => {
       });
     });
   });
+
+  describe("配置文件", () => {
+    describe("设置全局的配置文件", () => {
+      test("设置全局请求的 baseURL", async () => {
+        // 设置全局的 baseURL
+        const config = axios.getConfig();
+        config.baseURL = "nihao/";
+
+        const data = await axios({
+          method: GET,
+          url: GET_URL
+        });
+        expect(data).toBe(1);
+        const apiPath = "nihao/" + GET_URL;
+        expect(request).toBeCalledWith(GET, apiPath);
+      });
+    });
+    describe("请求级别的配置文件", () => {
+      test("设置请求的 baseURL", async () => {
+        const data = await axios({
+          method: GET,
+          url: GET_URL,
+          baseURL: "heiheihei/"
+        });
+        expect(data).toBe(1);
+        const apiPath = "heiheihei/" + GET_URL;
+        expect(request).toBeCalledWith(GET, apiPath);
+      });
+    });
+
+    describe("设置局部的 config 文件的优先级要大于 全局设置的 config", () => {
+      test("设置全局的 baseURL 为 nihao ， 设置局部的 baseURL 为 heiheihei， 最后的 baseURL 应该为 heiheihei", async () => {
+        const config = axios.getConfig();
+        config.baseURL = "nihao/";
+
+        const data = await axios({
+          method: GET,
+          url: GET_URL,
+          baseURL: "heiheihei/"
+        });
+        expect(data).toBe(1);
+        const apiPath = "heiheihei/" + GET_URL;
+        expect(request).toBeCalledWith(GET, apiPath);
+      });
+    });
+  });
 });
-
-
-
 
 async function expectGetByFunctionCalled(axios) {
   const data = await axios({
