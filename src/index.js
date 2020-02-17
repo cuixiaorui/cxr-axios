@@ -1,5 +1,6 @@
-import request from "./request";
-import { mixin } from "./utils";
+import request from "./request.js";
+import { mixin } from "./utils.js";
+import Axios from "./Axios"
 
 const axios = createInstance();
 
@@ -7,14 +8,23 @@ axios.create = () => {
   return createInstance();
 };
 
-function createInstance() {
-  const axios = config => {
+function createInstance(config) {
+
+  const axios = new Axios(config)
+
+  const obj = config => {
     const { method, url } = config;
-    return request(method, url);
+    return axios.request(method, url);
   };
 
-  mixin(axios, request);
-  return axios;
+
+  obj.getConfig = () => {
+    return axios.getConfig()
+  }
+
+
+  mixin(obj, axios.request.bind(axios));
+  return obj;
 }
 
 export default axios;

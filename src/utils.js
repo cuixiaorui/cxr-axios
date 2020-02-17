@@ -1,5 +1,5 @@
 
-import { GET, POST } from "./const";
+import { GET, POST } from "./const.js";
 
 export function mixin(obj, fn) {
   [GET, POST].forEach(method => {

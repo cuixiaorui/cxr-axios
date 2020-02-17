@@ -58,8 +58,8 @@ jest.mock("../src/request.js", () => {
 import request from "../src/request";
 import { GET, POST } from "../src/const";
 
-const GET_URL = "./getData";
-const POST_URL = "./update";
+const GET_URL = "/getData";
+const POST_URL = "/update";
 
 describe("axios", () => {
   describe("函数调用", () => {
@@ -107,6 +107,9 @@ describe("axios", () => {
     });
   });
 });
+
+
+
 
 async function expectGetByFunctionCalled(axios) {
   const data = await axios({
