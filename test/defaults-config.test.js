@@ -7,10 +7,9 @@ describe("defaults-config", () => {
     expect(isObject(config)).toBe(true);
   });
 
-  test("设置 config 对象的 baseURL 字段", () => {
+  // 应该用个循环来把所有的配置文件的默认值都 expect 掉
+  test("baseURL 默认值为 “”", () => {
     const config = axios.getConfig();
-    config.baseURL = "nihao"
-    expect(axios.getConfig().baseURL).toBe("nihao")
+    expect(config.baseURL).toBe("");
   });
-  
 });
