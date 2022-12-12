@@ -16,6 +16,6 @@
   },
   "dependencies": {
     "@koa/router": "^8.0.8",
-    "express": "^4.17.1"
+    "express": "^4.17.3"
   }
 }
